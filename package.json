@@ -1,0 +1,19 @@
+{
+  "name": "mobile-tracking-mock",
+  "private": true,
+  "version": "0.0.1",
+  "description": "A mock of an application that can be used to replace electronic tracking bracelets for parole purposes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "polymer test",
+    "serve": "polymer serve"
+  },
+  "devDependencies": {
+    "bower": "^1.8.0",
+    "firebase-tools": "^3.9.2",
+    "polymer-cli": "^1.3.1"
+  },
+  "dependencies": {
+    "redux": "^3.7.2"
+  }
+}

@@ -1,0 +1,18 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="mobile-tracking-app">
+  <template>
+    <h1>Hello</h1>
+  </template>
+  <script>
+    (function mobileTrackingAppDefinition(customElements) {
+      'use strict';
+
+      class MobileTrackingApp extends Polymer.Element {
+        static get is() { return `mobile-tracking-app`; }
+      }
+
+      customElements.define(MobileTrackingApp.is, MobileTrackingApp);
+    })(window.customElements);
+  </script>
+</dom-module>
