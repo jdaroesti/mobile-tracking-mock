@@ -1,0 +1,48 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+
+<link rel="import" href="../app-icons/app-icons.html">
+<link rel="import" href="../shared-styles/config-styles.html">
+<link rel="import" href="../test-directions/test-directions.html">
+
+<dom-module id="fingerprint-test-view">
+  <template>
+    <style include="config-styles">
+      .container {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        width: 100vw;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+      }
+
+      .test-icon {
+        --iron-icon-width: 120px;
+        --iron-icon-height: 120px;
+      }
+    </style>
+
+    <test-directions
+      header="Primera prueba"
+      directions="Coloca tu huella digital en el escáner"></test-directions>
+    <div class="container">
+      <iron-icon class="test-icon" icon="app:fingerprint"></iron-icon>
+    </div>
+  </template>
+  <script>
+    (function fingerprintTestView(customElements) {
+      'use strict';
+
+      class FingerprintTestView extends Polymer.Element {
+        static get is() { return `fingerprint-test-view`; }
+      }
+
+      customElements.define(FingerprintTestView.is, FingerprintTestView);
+    })(window.customElements);
+  </script>
+</dom-module>

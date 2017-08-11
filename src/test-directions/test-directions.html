@@ -1,0 +1,41 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<link rel="import" href="../shared-styles/config-styles.html">
+
+<dom-module id="test-directions">
+  <template>
+  <style include="config-styles">
+    .directions {
+      text-align: center;
+    }
+
+    .test-header {
+      font-size: 1.3em;
+      margin: 15px 0 0 0;
+    }
+    </style>
+
+    <div class="directions">
+      <h1 class="test-header">[[header]]</h1>
+      <p class="directions">[[directions]]</p>
+    </div>
+  </template>
+  <script>
+    (function testDirectionsDefinition(customElements) {
+      'use strict';
+
+      class TestDirections extends Polymer.Element {
+        static get is() { return `test-directions`; }
+
+        static get properties() {
+          return {
+            header: String,
+            directions: String  
+          };
+        }
+      }
+
+      customElements.define(TestDirections.is, TestDirections);
+    })(window.customElements);
+  </script>
+</dom-module>

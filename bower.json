@@ -4,6 +4,9 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.2",
     "app-layout": "PolymerElements/app-layout#^2.0.1",
-    "app-route": "PolymerElements/app-route#^2.0.1"
+    "app-route": "PolymerElements/app-route#^2.0.1",
+    "neon-animation": "PolymerElements/neon-animated-pages#^2.0.1",
+    "iron-iconset-svg": "PolymerElements/iron-iconset-svg#^2.0.1",
+    "iron-icon": "PolymerElements/iron-icon#^2.0.1"
   }
 }

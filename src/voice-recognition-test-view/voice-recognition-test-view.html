@@ -1,0 +1,18 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="voice-recognition-test-view">
+  <template>
+    <h1>Voice</h1>
+  </template>
+  <script>
+    (function voiceRecognitionTestView(customElements) {
+      'use strict';
+
+      class VoiceRecognitionTestView extends Polymer.Element {
+        static get is() { return `voice-recognition-test-view`; }
+      }
+
+      customElements.define(VoiceRecognitionTestView.is, VoiceRecognitionTestView);
+    })(window.customElements);
+  </script>
+</dom-module>

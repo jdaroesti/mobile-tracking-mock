@@ -1,0 +1,18 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="face-detection-test-view">
+  <template>
+    <h1>face detection</h1>
+  </template>
+  <script>
+    (function faceDetectionTestViewDefinition(customElements) {
+      'use strict';
+
+      class FaceDetectionTestView extends Polymer.Element {
+        static get is() { return `face-detection-test-view`; }
+      }
+
+      customElements.define(FaceDetectionTestView.is, FaceDetectionTestView);
+    })(window.customElements)
+  </script>
+</dom-module>

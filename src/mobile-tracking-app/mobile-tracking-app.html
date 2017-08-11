@@ -1,8 +1,50 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animated-pages.html">
+
+<link rel="import" href="../face-detection-test-view/face-detection-test-view.html">
+<link rel="import" href="../fingerprint-test-view/fingerprint-test-view.html">
+<link rel="import" href="../voice-recognition-test-view/voice-recognition-test-view.html">
+
+<link rel="import" href="../shared-styles/config-styles.html">
 
 <dom-module id="mobile-tracking-app">
   <template>
-    <h1>Hello</h1>
+    <style include="config-styles">
+      .logo-policia-federal {
+        max-width: 48px;
+        max-height: 48px;
+      }
+      .toolbar {
+        background-color: var(--primary-color);
+      }
+
+      [main-title] {
+        color: var(--text-color-inverse);
+      }
+    </style>
+
+    <app-location route="{{currentRoute}}"></app-location>
+    <app-route route="[[currentRoute]]" pattern="/:view" data="{{routeData}}"></app-route>
+
+    <app-header-layout fullbleed>
+      <app-header slot="header">
+        <app-toolbar class="toolbar">
+          <div main-title>Localización electrónica</div>
+          <img class="logo-policia-federal" src="../../assets/logos/logo-policia-federal.png" alt="Policía Federal">
+        </app-toolbar>
+      </app-header>
+
+      <neon-animated-pages selected="[[routeData.view]]" attr-for-selected="view" fallback-selection="fingerprint-test">
+        <fingerprint-test-view view="fingerprint-test"></fingerprint-test-view>
+        <face-detection-test-view view="face-detection-test"></face-detection-test-view>
+        <voice-recognition-test-view view="voice-recognition-test"></voice-recognition-test-view>
+      </neon-animated-pages>
+    </app-header-layout>
   </template>
   <script>
     (function mobileTrackingAppDefinition(customElements) {
