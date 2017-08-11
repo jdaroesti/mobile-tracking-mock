@@ -1,23 +1,55 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="../app-icons/app-icons.html">
 <link rel="import" href="../shared-styles/config-styles.html">
 
 <dom-module id="test-directions">
   <template>
-  <style include="config-styles">
-    .directions {
-      text-align: center;
-    }
+    <style include="config-styles">
+      .button {
+        color: var(--text-color-inverse);
+        background-color: var(--primary-color);
+        position: absolute;
+        bottom: 0;
+        margin-bottom: 40px;
+      }
 
-    .test-header {
-      font-size: 1.3em;
-      margin: 15px 0 0 0;
-    }
+      .container {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        width: 100vw;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+      }
+
+      .directions {
+        text-align: center;
+      }
+
+      .test-header {
+        font-size: 1.3em;
+        margin: 15px 0 0 0;
+      }
+
+      .test-icon {
+        --iron-icon-width: 120px;
+        --iron-icon-height: 120px;
+      }
     </style>
 
     <div class="directions">
       <h1 class="test-header">[[header]]</h1>
       <p class="directions">[[directions]]</p>
+    </div>
+    <div class="container">
+      <iron-icon class="test-icon" icon="[[icon]]"></iron-icon>
+      <paper-button class="button" raised>comenzar</paper-button>
     </div>
   </template>
   <script>
@@ -30,7 +62,8 @@
         static get properties() {
           return {
             header: String,
-            directions: String  
+            directions: String,
+            icon: String
           };
         }
       }

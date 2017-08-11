@@ -1,8 +1,15 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 
+<link rel="import" href="../shared-styles/config-styles.html">
+<link rel="import" href="../test-directions/test-directions.html">
+
 <dom-module id="face-detection-test-view">
   <template>
-    <h1>face detection</h1>
+    <style include="config-styles"></style>
+
+    <test-directions
+      header="Segunda prueba"
+      directions="Mira a la cámara" icon="app:camera"></test-directions>
   </template>
   <script>
     (function faceDetectionTestViewDefinition(customElements) {
