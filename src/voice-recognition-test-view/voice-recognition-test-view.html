@@ -1,10 +1,12 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
 
 <link rel="import" href="../../bower_components/app-route/app-route.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animated-pages.html">
 
 <link rel="import" href="../shared-styles/config-styles.html">
 <link rel="import" href="../test-directions/test-directions.html">
+<link rel="import" href="../voice-recognition-test/voice-recognition-test.html">
 
 <dom-module id="voice-recognition-test-view">
   <template>
@@ -12,16 +14,21 @@
 
     <app-route route="[[route]]" pattern="/:view" data="{{routeData}}"></app-route>
 
-    <neon-animated-pages selected="[[routeData.view]]" attr-for-selected="view" fallback-selection="directions">
+    <neon-animated-pages selected="[[routeData.view]]"
+                         attr-for-selected="view"
+                         fallback-selection="directions"
+                         selected-attribute="selected">
       <test-directions
         view="directions"
         header="Tercera prueba"
         directions="Lee en voz alta el enunciado"
         test-url="/voice-recognition/test"
         icon="app:microphone"></test-directions>
-      <div view="test">
-        <h1>voice recognition test</h1>
-      </div>
+
+      <template is="dom-if" if="[[_voiceRecognitionRouteIsActive(route.prefix)]]" restamp>
+        <voice-recognition-test view="test"
+                                test-sentence="[[_selectedSentence]]"></voice-recognition-test>
+      </template>
     </neon-animated-pages>
   </template>
   <script>
@@ -33,8 +40,32 @@
 
         static get properties() {
           return {
-            route: Object
+            route: Object,
+            _randomSentences: {
+              type: Array,
+              value: [
+                `La jirafa come hojas`,
+                `El venado corre rápido`,
+                `El edificio es alto`,
+                `Los policías son mis amigos`,
+                `El coche es bonito`,
+                `El coyote persigue a la liebre`
+              ]
+            },
+            _selectedSentence: {
+              type: String,
+              computed: `_computeSelectedSentence(_randomSentences)`
+            }
           };
+        }
+
+        _computeSelectedSentence(sentences) {
+          const randomIndex = Math.floor(Math.random() * (sentences.length));
+          return this._randomSentences[randomIndex];
+        }
+
+        _voiceRecognitionRouteIsActive(prefix) {
+          return prefix === '/voice-recognition';
         }
       }
 

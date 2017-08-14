@@ -1,0 +1,136 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
+
+<link rel="import" href="../annyang-import/annyang-import.html">
+<link rel="import" href="../app-icons/app-icons.html">
+<link rel="import" href="../shared-styles/config-styles.html">
+
+<dom-module id="voice-recognition-test">
+  <template>
+    <style include="config-styles">
+      .directions {
+        text-align: center;
+      }
+
+      .icon {
+        --iron-icon-width: 120px;
+        --iron-icon-height: 120px;
+        text-align: center;
+      }
+
+      .test-sentence {
+        font-size: 1.3em;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      .progress {
+        --paper-progress-active-color: var(--primary-color);
+        min-width: 100%;
+      }
+
+      .container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+     </style>
+
+    <template is="dom-if" if="[[_recognitionStarted]]">
+      <paper-progress class="progress" indeterminate></paper-progress>
+    </template>
+
+    <p class="directions">Lee en voz alta el enunciado</p>
+    <p class="test-sentence">"[[testSentence]]"</p>
+
+    <template is="dom-if" if="[[_displaySuccessMessage]]">
+      <hr>
+      <p class="directions">
+        <iron-icon class="icon" icon="app:trophy"></iron-icon>
+      </p>
+      <h2 class="directions">¡Felicidades!</h2>
+      <p class="directions">Haz completado todas las pruebas</p>
+    </template>
+
+    <template is="dom-if" if="[[_displayErrorMessage]]">
+      <hr>
+      <p class="directions">
+        <iron-icon class="icon" icon="app:thumb-down"></iron-icon>
+      </p>
+      <h2 class="directions">Tu voz no coincide con el enunciado</h2>
+    </template>
+  </template>
+  <script>
+    (function voiceRecognitionTestDefinition(customElements) {
+      'use strict';
+
+      class VoiceRecognitionTest extends Polymer.Element {
+        static get is() { return `voice-recognition-test`; }
+
+        static get properties() {
+          return  {
+            selected: {
+              type: Boolean,
+              observer: `_selectedChanged`
+            },
+            testSentence: String,
+            _displaySuccessMessage: Boolean,
+            _displayErrorMessage: Boolean,
+            _recognitionStarted: {
+              type: Boolean,
+              value: false
+            }
+          };
+        }
+
+        connectedCallback() {
+          super.connectedCallback();
+
+          this._displaySuccessMessage = false;
+          this._displayErrorMessage = false;
+
+          // annyang config
+          annyang.setLanguage(`es-MX`);
+
+          annyang.addCommands({
+            [this.testSentence]: function() {
+              this._displaySuccessMessage = true;
+              this._displayErrorMessage = false;
+            }.bind(this)
+          });
+
+          annyang.addCallback(`soundstart`,
+            () => this._recognitionStarted = true);
+
+          annyang.addCallback(`end`,
+            () => this._recognitionStarted = false);
+
+          annyang.addCallback(`resultNoMatch`, (result) => {
+            this._displayErrorMessage = true;
+            this._displaySuccessMessage = false;
+          });
+        }
+
+        _computeSelectedSentence(randomSentences, randomSelection) {
+          return randomSentences[randomSelection];
+        }
+
+        _selectedChanged(selected) {
+          if(selected) {
+            annyang.start({autoRestart: false, continuous: false});
+            this._displayErrorMessage = false;
+            this._displaySuccessMessage = false;
+          } else {
+            annyang.abort();
+          }
+        }
+      }
+
+      customElements.define(VoiceRecognitionTest.is, VoiceRecognitionTest);
+    })(window.customElements);
+  </script>
+</dom-module>
