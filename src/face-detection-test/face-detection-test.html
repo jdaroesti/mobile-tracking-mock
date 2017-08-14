@@ -1,12 +1,44 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="../clmtrackr-import/clmtrackr-import.html">
 <link rel="import" href="../shared-styles/config-styles.html">
 
 <dom-module id="face-detection-test">
   <template>
-    <style include="config-styles"></style>
-    <h1>Soy face detection test</h1>
-    <a href="/voice-recognition/directions">Next</a>
+    <style include="config-styles">
+      .video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin-top: 30px;
+      }
+
+      .container {
+        width: 100%;
+        height: 100%;
+        display: block;
+        background-color: red;
+      }
+
+      .button-anchor {
+        position: absolute;
+        top: 50vh;
+        left: calc(50vw - 50px);
+      }
+    </style>
+
+    <p class="center-text">Mira a la cámara</p>
+
+    <div class="container">
+      <video id="inputVideo" class="video" width="412" height="300" autoplay loop></video>
+      <canvas id="drawCanvas" class="video" width="412" height="300"></canvas>
+
+      <a class="button-anchor" href="/voice-recognition/directions">
+        <paper-button class="button" raised on-click="_stopMedia">Continuar</paper-button>
+      </a>
+    </div>
   </template>
   <script>
     (function faceDetectionTestDefinition(customElements) {
@@ -14,6 +46,52 @@
 
       class FaceDetectionTest extends Polymer.Element {
         static get is() { return `face-detection-test`; }
+
+        static get properties() {
+          return {
+            selected: {
+              type: Boolean,
+              observer: `_selectedChanged`
+            }
+          };
+        }
+
+        connectedCallback() {
+          super.connectedCallback();
+
+          this.ctracker = new clm.tracker({scoreThreshold: 0.60, stopOnConvergence: false});
+        }
+
+        _drawLoop() {
+          const canvasInput = this.shadowRoot.querySelector('#drawCanvas');
+          const cc = canvasInput.getContext('2d');
+          requestAnimationFrame(this._drawLoop.bind(this));
+          cc.clearRect(0, 0, canvasInput.width, canvasInput.height);
+          this.ctracker.draw(canvasInput);
+        }
+
+        _selectedChanged(selected) {
+          if(selected) {
+            this._converged = false;
+            navigator.mediaDevices.getUserMedia({video : true}).then((stream) => {
+              this.stream = stream;
+              const vid = this.$.inputVideo;
+              vid.srcObject = stream;
+  					  vid.play();
+            });
+
+            this.ctracker.init();
+            this.ctracker.start(this.$.inputVideo);
+            this._drawLoop();
+          } else {
+            this.ctracker.stop();
+            this._stopMedia();
+          }
+        }
+
+        _stopMedia() {
+          this.stream.getVideoTracks().forEach(stream => stream.stop());
+        }
       }
 
       customElements.define(FaceDetectionTest.is, FaceDetectionTest);

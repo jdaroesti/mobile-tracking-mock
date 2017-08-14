@@ -13,7 +13,10 @@
 
     <app-route route="[[route]]" pattern="/:view" data="{{routeData}}"></app-route>
 
-    <neon-animated-pages selected="[[routeData.view]]" attr-for-selected="view" fallback-selection="directions">
+    <neon-animated-pages selected="[[routeData.view]]"
+                         attr-for-selected="view"
+                         selected-attribute="selected"
+                         fallback-selection="directions">
       <test-directions
         view="directions"
         header="Segunda prueba"

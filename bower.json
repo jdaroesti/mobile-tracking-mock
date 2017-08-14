@@ -10,6 +10,7 @@
     "iron-icon": "PolymerElements/iron-icon#^2.0.1",
     "paper-button": "PolymerElements/paper-button#^2.0.0",
     "annyang": "TalAter/annyang#^2.6.0",
-    "paper-progress": "PolymerElements/paper-progress#^2.0.1"
+    "paper-progress": "PolymerElements/paper-progress#^2.0.1",
+    "clmtrackr": "auduno/clmtrackr#^1.1.0"
   }
 }
