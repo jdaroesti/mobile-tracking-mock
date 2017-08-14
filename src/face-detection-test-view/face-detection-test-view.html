@@ -1,5 +1,8 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animated-pages.html">
+
 <link rel="import" href="../shared-styles/config-styles.html">
 <link rel="import" href="../test-directions/test-directions.html">
 
@@ -7,9 +10,20 @@
   <template>
     <style include="config-styles"></style>
 
-    <test-directions
-      header="Segunda prueba"
-      directions="Mira a la cámara" icon="app:camera"></test-directions>
+    <app-route route="[[route]]" pattern="/:view" data="{{routeData}}"></app-route>
+
+    <neon-animated-pages selected="[[routeData.view]]" attr-for-selected="view" fallback-selection="directions">
+      <test-directions
+        view="directions"
+        header="Segunda prueba"
+        directions="Mira a la cámara"
+        test-url="/face-detection/test"
+        icon="app:camera"></test-directions>
+      <div view="test">
+        <h1>soy face detection test</h1>
+        <a href="/voice-recognition/directions">Next</a>
+      </div>
+    </neon-animated-pages>
   </template>
   <script>
     (function faceDetectionTestViewDefinition(customElements) {
@@ -17,6 +31,12 @@
 
       class FaceDetectionTestView extends Polymer.Element {
         static get is() { return `face-detection-test-view`; }
+
+        static get properties() {
+          return {
+            route: Object
+          };
+        }
       }
 
       customElements.define(FaceDetectionTestView.is, FaceDetectionTestView);

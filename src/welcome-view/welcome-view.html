@@ -1,0 +1,58 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="../shared-styles/config-styles.html">
+
+<dom-module id="welcome-view">
+  <template>
+    <style include="config-styles">
+      .app-name {
+        font-size: 1.5em;
+      }
+
+      .button-anchor {
+        margin-top: 30px;
+      }
+
+      .view-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .directions {
+        text-align: center;
+        margin: 10px 0;
+      }
+
+      .logo {
+        margin: 30px 0 20px 0;
+        max-width: 148px;
+        max-height: 148px;
+      }
+    </style>
+
+    <div class="view-container">
+      <img class="logo"
+           src="../../assets/logos/logo-policia-federal.png"
+           alt="Policía Federal">
+      <h1 class="directions app-name">Aplicación de localización electrónica</h1>
+      <p class="directions">Unidad de Seguimiento y Supervisión de Medidas Cautelares y Suspensión Condicional del Proceso</p>
+      <a class="button-anchor" href="/fingerprint/directions">
+        <paper-button class="button" raised>Comenzar</paper-button>
+      </a>
+    </div>
+  </template>
+  <script>
+    (function welcomeViewDefinition(customElements) {
+      'use strict';
+
+      class WelcomeView extends Polymer.Element {
+        static get is() { return `welcome-view`; }
+      }
+
+      customElements.define(WelcomeView.is, WelcomeView);
+    })(window.customElements);
+  </script>
+</dom-module>

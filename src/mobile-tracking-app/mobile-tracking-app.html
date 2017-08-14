@@ -9,6 +9,7 @@
 <link rel="import" href="../face-detection-test-view/face-detection-test-view.html">
 <link rel="import" href="../fingerprint-test-view/fingerprint-test-view.html">
 <link rel="import" href="../voice-recognition-test-view/voice-recognition-test-view.html">
+<link rel="import" href="../welcome-view/welcome-view.html">
 
 <link rel="import" href="../shared-styles/config-styles.html">
 
@@ -29,20 +30,31 @@
     </style>
 
     <app-location route="{{currentRoute}}"></app-location>
-    <app-route route="[[currentRoute]]" pattern="/:view" data="{{routeData}}"></app-route>
+    <app-route route="[[currentRoute]]"
+               pattern="/:view"
+               data="{{routeData}}"
+               tail="{{subRoute}}"></app-route>
 
     <app-header-layout fullbleed>
       <app-header slot="header">
         <app-toolbar class="toolbar">
           <div main-title>Localización electrónica</div>
-          <img class="logo-policia-federal" src="../../assets/logos/logo-policia-federal.png" alt="Policía Federal">
+          <img class="logo-policia-federal"
+               src="../../assets/logos/logo-policia-federal.png"
+               alt="Policía Federal">
         </app-toolbar>
       </app-header>
 
-      <neon-animated-pages selected="[[routeData.view]]" attr-for-selected="view" fallback-selection="fingerprint-test">
-        <fingerprint-test-view view="fingerprint-test"></fingerprint-test-view>
-        <face-detection-test-view view="face-detection-test"></face-detection-test-view>
-        <voice-recognition-test-view view="voice-recognition-test"></voice-recognition-test-view>
+      <neon-animated-pages selected="[[routeData.view]]"
+                           attr-for-selected="view"
+                           fallback-selection="welcome">
+        <welcome-view view="welcome"></welcome-view>
+        <fingerprint-test-view view="fingerprint"
+                               route=[[subRoute]]></fingerprint-test-view>
+        <face-detection-test-view view="face-detection"
+                                  route="[[subRoute]]"></face-detection-test-view>
+        <voice-recognition-test-view view="voice-recognition"
+                                     route="[[subRoute]]"></voice-recognition-test-view>
       </neon-animated-pages>
     </app-header-layout>
   </template>

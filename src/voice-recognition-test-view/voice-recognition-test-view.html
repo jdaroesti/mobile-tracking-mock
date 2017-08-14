@@ -1,5 +1,8 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animated-pages.html">
+
 <link rel="import" href="../shared-styles/config-styles.html">
 <link rel="import" href="../test-directions/test-directions.html">
 
@@ -7,9 +10,19 @@
   <template>
     <style include="config-styles"></style>
 
-    <test-directions
-      header="Tercera prueba"
-      directions="Lee en voz alta el enunciado" icon="app:microphone"></test-directions>
+    <app-route route="[[route]]" pattern="/:view" data="{{routeData}}"></app-route>
+
+    <neon-animated-pages selected="[[routeData.view]]" attr-for-selected="view" fallback-selection="directions">
+      <test-directions
+        view="directions"
+        header="Tercera prueba"
+        directions="Lee en voz alta el enunciado"
+        test-url="/voice-recognition/test"
+        icon="app:microphone"></test-directions>
+      <div view="test">
+        <h1>voice recognition test</h1>
+      </div>
+    </neon-animated-pages>
   </template>
   <script>
     (function voiceRecognitionTestView(customElements) {
@@ -17,6 +30,12 @@
 
       class VoiceRecognitionTestView extends Polymer.Element {
         static get is() { return `voice-recognition-test-view`; }
+
+        static get properties() {
+          return {
+            route: Object
+          };
+        }
       }
 
       customElements.define(VoiceRecognitionTestView.is, VoiceRecognitionTestView);
