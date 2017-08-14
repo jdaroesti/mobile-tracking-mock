@@ -1,0 +1,22 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<link rel="import" href="../shared-styles/config-styles.html">
+
+<dom-module id="face-detection-test">
+  <template>
+    <style include="config-styles"></style>
+    <h1>Soy face detection test</h1>
+    <a href="/voice-recognition/directions">Next</a>
+  </template>
+  <script>
+    (function faceDetectionTestDefinition(customElements) {
+      'use strict';
+
+      class FaceDetectionTest extends Polymer.Element {
+        static get is() { return `face-detection-test`; }
+      }
+
+      customElements.define(FaceDetectionTest.is, FaceDetectionTest);
+    })(window.customElements);
+  </script>
+</dom-module>

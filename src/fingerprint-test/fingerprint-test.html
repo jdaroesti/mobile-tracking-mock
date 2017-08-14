@@ -1,0 +1,68 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="../../bower_components/polymer/lib/utils/async.html">
+
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
+
+<link rel="import" href="../app-icons/app-icons.html">
+<link rel="import" href="../shared-styles/config-styles.html">
+
+<dom-module id="fingerprint-test">
+  <template>
+    <style include="config-styles"></style>
+
+    <template is="dom-if" if="[[!_testIsComplete]]">
+      <paper-progress class="progress" indeterminate></paper-progress>
+      <p class="center-text">Leyendo huella digital...</p>
+    </template>
+
+    <template is="dom-if" if="[[_testIsComplete]]">
+      <p class="center-text">
+        <iron-icon class="icon" icon="app:trophy"></iron-icon>
+      </p>
+      <h2 class="center-text">¡Huella digital detectada!</h2>
+      <p class="center-text">
+        <a href="/face-detection/directions" tabindex="-1">
+          <paper-button class="button" raised>continuar</paper-button>
+        </a>
+      </p>
+    </template>
+
+  </template>
+  <script>
+    (function fingerprintTestDefinition(customElements) {
+      'use strict';
+
+      class FingerprintTest extends Polymer.Element {
+        static get is() { return `fingerprint-test`; }
+
+        static get properties() {
+          return {
+            selected: {
+              type: Boolean,
+              observer: `_selectedChanged`
+            },
+            _testIsComplete: {
+              type: Boolean,
+              value: false
+            }
+          };
+        }
+
+        _selectedChanged(selected) {
+          if(selected) {
+            Polymer.Async.timeOut
+              .after(5000)
+              .run(() => this._testIsComplete = true);
+          } else {
+            this._testIsComplete = false;
+          }
+        }
+      }
+
+      customElements.define(FingerprintTest.is, FingerprintTest);
+    })(window.customElements);
+  </script>
+</dom-module>

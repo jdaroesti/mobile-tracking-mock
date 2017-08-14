@@ -4,6 +4,7 @@
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/neon-animation/neon-animated-pages.html">
 
+<link rel="import" href="../fingerprint-test/fingerprint-test.html">
 <link rel="import" href="../shared-styles/config-styles.html">
 <link rel="import" href="../test-directions/test-directions.html">
 
@@ -11,17 +12,17 @@
   <template>
     <app-route route="[[route]]" pattern="/:view" data="{{routeData}}"></app-route>
 
-    <neon-animated-pages selected="[[routeData.view]]" attr-for-selected="view" fallback-selection="directions">
+    <neon-animated-pages selected="[[routeData.view]]"
+                         attr-for-selected="view" 
+                         selected-attribute="selected"
+                         fallback-selection="directions">
       <test-directions
         view="directions"
         header="Primera prueba"
         directions="Coloca tu huella digital en el escáner del teléfono"
         test-url="/fingerprint/test"
         icon="app:fingerprint"></test-directions>
-      <div view="test">
-        <h1>testy</h1>
-        <a href="/face-detection/directions">next</a>
-      </div>
+      <fingerprint-test view="test"></fingerprint-test>
     </neon-animated-pages>
   </template>
   <script>

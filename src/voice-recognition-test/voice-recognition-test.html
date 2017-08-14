@@ -11,25 +11,10 @@
 <dom-module id="voice-recognition-test">
   <template>
     <style include="config-styles">
-      .directions {
-        text-align: center;
-      }
-
-      .icon {
-        --iron-icon-width: 120px;
-        --iron-icon-height: 120px;
-        text-align: center;
-      }
-
       .test-sentence {
         font-size: 1.3em;
         text-align: center;
         font-weight: bold;
-      }
-
-      .progress {
-        --paper-progress-active-color: var(--primary-color);
-        min-width: 100%;
       }
 
       .container {
@@ -44,24 +29,25 @@
       <paper-progress class="progress" indeterminate></paper-progress>
     </template>
 
-    <p class="directions">Lee en voz alta el enunciado</p>
-    <p class="test-sentence">"[[testSentence]]"</p>
+    <template is="dom-if" if="[[!_displaySuccessMessage]]">
+      <p class="center-text">Lee en voz alta el enunciado</p>
+      <p class="test-sentence">"[[testSentence]]"</p>
+    </template>
 
     <template is="dom-if" if="[[_displaySuccessMessage]]">
-      <hr>
-      <p class="directions">
+      <p class="center-text">
         <iron-icon class="icon" icon="app:trophy"></iron-icon>
       </p>
-      <h2 class="directions">¡Felicidades!</h2>
-      <p class="directions">Haz completado todas las pruebas</p>
+      <h2 class="center-text">¡Felicidades!</h2>
+      <p class="center-text">Haz completado todas las pruebas</p>
     </template>
 
     <template is="dom-if" if="[[_displayErrorMessage]]">
       <hr>
-      <p class="directions">
+      <p class="center-text">
         <iron-icon class="icon" icon="app:thumb-down"></iron-icon>
       </p>
-      <h2 class="directions">Tu voz no coincide con el enunciado</h2>
+      <h2 class="center-text">Tu voz no coincide con el enunciado</h2>
     </template>
   </template>
   <script>
