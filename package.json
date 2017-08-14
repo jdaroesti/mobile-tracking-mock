@@ -6,7 +6,9 @@
   "main": "index.js",
   "scripts": {
     "test": "polymer test",
-    "serve": "polymer serve"
+    "serve": "firebase serve",
+    "build": "polymer build",
+    "deploy": "firebase deploy --public=build/default"
   },
   "devDependencies": {
     "bower": "^1.8.0",

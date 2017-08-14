@@ -1,0 +1,15 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/mobile-tracking-app/mobile-tracking-app.html",
+  "fragments": [],
+  "sources": [
+    "assets/logos/*.png"
+  ],
+  "extraDependencies": [],
+  "builds": [{
+    "bundle": false,
+    "js": {"minify": true},
+    "css": {"minify": true},
+    "html": {"minify": true}
+  }]
+}

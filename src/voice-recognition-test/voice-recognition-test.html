@@ -107,7 +107,7 @@
 
         _selectedChanged(selected) {
           if(selected) {
-            annyang.start({autoRestart: false, continuous: false});
+            annyang.start({autoRestart: true, continuous: false});
             this._displayErrorMessage = false;
             this._displaySuccessMessage = false;
           } else {
